@@ -1,3 +1,5 @@
+import { LOGIN_TYPE } from '../redux/actions';
+
 const INITIAL_STATE = {
   name: '',
   assertions: 0,
@@ -7,6 +9,12 @@ const INITIAL_STATE = {
 
 const user = (state = INITIAL_STATE, action) => {
   switch (action.type) {
+  case LOGIN_TYPE:
+    return {
+      ...state,
+      name: action.name,
+      gravatarEmail: action.gravatar,
+    };
   default:
     return state;
   }

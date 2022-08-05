@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 class Login extends React.Component {
   constructor() {
@@ -7,6 +8,13 @@ class Login extends React.Component {
       name: '',
       email: '',
     };
+  }
+
+  handleClick = () => {
+    const { history } = this.props;
+    // const { name, email } = this.state;
+
+    history.push('./settings');
   }
 
   handleChange = ({ target }) => {
@@ -42,9 +50,22 @@ class Login extends React.Component {
         >
           Play
         </button>
+        <button
+          data-testid="settings-title"
+          type="submit"
+          onClick={ this.handleClick }
+        >
+          settings
+        </button>
       </div>
     );
   }
 }
+Login.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }),
+}.isRequired;
 
+// const mapDispatchToProps = (dispatch) => ({});
 export default Login;

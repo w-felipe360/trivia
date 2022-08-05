@@ -1,4 +1,4 @@
-export default action1 = (payload) => ({
-  type: 'ACTION-TYPE',
-  payload:
+export default loginType = (payload) => ({
+  type: 'LOGIN_TYPE',
+  payload,
 });
