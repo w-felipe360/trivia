@@ -43,6 +43,7 @@ class Login extends React.Component {
     return (
       <div>
         <input
+          placeholder="nome"
           name="name"
           type="text"
           data-testid="input-player-name"
@@ -50,6 +51,7 @@ class Login extends React.Component {
           onChange={ this.handleChange }
         />
         <input
+          placeholder="e-mail"
           name="email"
           type="email"
           value={ email }
