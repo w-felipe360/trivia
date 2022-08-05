@@ -12,8 +12,6 @@ class Login extends React.Component {
 
   handleClick = () => {
     const { history } = this.props;
-    // const { name, email } = this.state;
-
     history.push('./settings');
   }
 
@@ -51,7 +49,7 @@ class Login extends React.Component {
           Play
         </button>
         <button
-          data-testid="settings-title"
+          data-testid="btn-settings"
           type="submit"
           onClick={ this.handleClick }
         >
@@ -67,5 +65,5 @@ Login.propTypes = {
   }),
 }.isRequired;
 
-// const mapDispatchToProps = (dispatch) => ({});
+// const mapDispatchToProps = (dispatch) => ({});gi
 export default Login;

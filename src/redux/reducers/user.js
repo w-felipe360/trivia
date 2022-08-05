@@ -1,4 +1,4 @@
-import { LOGIN_TYPE } from '../redux/actions';
+import { LOGIN_TYPE } from '../actions';
 
 const INITIAL_STATE = {
   name: '',
