@@ -12,12 +12,17 @@ class Login extends React.Component {
     };
   }
 
+  handleClick = () => {
+    const { history } = this.props;
+    history.push('./settings');
+  }
+
   handleChange = ({ target }) => {
     const { name, value } = target;
     this.setState({ [name]: value });
   }
 
-  handleClick = async () => {
+  handleClickAPI = async () => {
     const { isLoading } = this.state;
     const { history } = this.props;
     this.setState({ isLoading: !isLoading }, () => { });
@@ -55,9 +60,16 @@ class Login extends React.Component {
           data-testid="btn-play"
           type="submit"
           disabled={ !botãoAberto }
-          onClick={ this.handleClick }
+          onClick={ this.handleClickAPI }
         >
           Play
+        </button>
+        <button
+          data-testid="btn-settings"
+          type="submit"
+          onClick={ this.handleClick }
+        >
+          settings
         </button>
       </div>
     );

@@ -1,4 +1,8 @@
-export default action1 = (payload) => ({
-  type: 'ACTION-TYPE',
+export const LOGIN_TYPE = (payload) => ({
+  type: 'LOGIN_TYPE',
   payload,
+});
+
+export const aaa = () => ({
+  type: null,
 });
