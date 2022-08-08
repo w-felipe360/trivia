@@ -1,13 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { getToken, setLocalStorage } from '../services/requestAPI';
+import { gravatarAction, userLoginAction } from '../redux/actions';
 
 class Login extends React.Component {
   constructor() {
     super();
     this.state = {
       name: '',
-      email: '',
+      gravatarEmail: '',
       isLoading: false,
     };
   }
@@ -23,8 +25,8 @@ class Login extends React.Component {
   }
 
   handleClickAPI = async () => {
-    const { isLoading } = this.state;
     const { history } = this.props;
+    const { isLoading } = this.state;
     this.setState({ isLoading: !isLoading }, () => { });
     const returnAPI = await getToken();
     setLocalStorage(returnAPI.token);
@@ -33,12 +35,11 @@ class Login extends React.Component {
   }
 
   render() {
-    const { name, email, isLoading } = this.state;
-
+    const { name, gravatarEmail, isLoading } = this.state;
+    const { userLogin, userEmail } = this.props;
     const test = /\w+@\w+.com/;
     const nameLength = 1;
-    const botãoAberto = (test.test(email) && name.length >= nameLength);
-
+    const botãoAberto = (test.test(gravatarEmail) && name.length >= nameLength);
     if (isLoading) return <div>Carregando...</div>;
     return (
       <div>
@@ -47,14 +48,12 @@ class Login extends React.Component {
           name="name"
           type="text"
           data-testid="input-player-name"
-          value={ name }
           onChange={ this.handleChange }
         />
         <input
           placeholder="e-mail"
-          name="email"
+          name="gravatarEmail"
           type="email"
-          value={ email }
           data-testid="input-gravatar-email"
           onChange={ this.handleChange }
         />
@@ -62,7 +61,11 @@ class Login extends React.Component {
           data-testid="btn-play"
           type="submit"
           disabled={ !botãoAberto }
-          onClick={ this.handleClickAPI }
+          onClick={ () => {
+            this.handleClickAPI();
+            userLogin(name);
+            userEmail(gravatarEmail);
+          } }
         >
           Play
         </button>
@@ -77,11 +80,15 @@ class Login extends React.Component {
     );
   }
 }
-
+const mapDispatchToProps = (dispatch) => ({
+  userLogin: (name) => dispatch(userLoginAction(name)),
+  userEmail: (gravatarEmail) => dispatch(gravatarAction(gravatarEmail)),
+});
 Login.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
   }).isRequired,
+  userLogin: PropTypes.func.isRequired,
+  userEmail: PropTypes.func.isRequired,
 };
-
-export default Login;
+export default connect(null, mapDispatchToProps)(Login);

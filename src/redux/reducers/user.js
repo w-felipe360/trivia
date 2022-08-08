@@ -1,4 +1,4 @@
-import { LOGIN_TYPE } from '../actions';
+import { LOGIN_TYPE, GRAVATAR_TYPE } from '../actions';
 
 const INITIAL_STATE = {
   name: '',
@@ -6,18 +6,20 @@ const INITIAL_STATE = {
   score: 0,
   gravatarEmail: '',
 };
-
-const user = (state = INITIAL_STATE, action) => {
+const userReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
   case LOGIN_TYPE:
     return {
       ...state,
       name: action.name,
-      gravatarEmail: action.gravatar,
+    };
+  case GRAVATAR_TYPE:
+    return {
+      ...state,
+      email: action.gravatarEmail,
     };
   default:
     return state;
   }
 };
-
-export default user;
+export default userReducer;
