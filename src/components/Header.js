@@ -6,9 +6,9 @@ import md5 from 'crypto-js/md5';
 class Header extends React.Component {
   render() {
     const { name, email } = this.props;
-    const hash = md5(email).toString();
-    console.log(hash);
-    console.log(name);
+    const formatEmail = email.trim(); // .trim(0 remove os espaços em branco do inicio e do final da string).
+    formatEmail.toLowerCase(); // muda toda a string para minusculo.
+    const hash = md5(formatEmail).toString();
     return (
       <div>
         <img
@@ -29,7 +29,7 @@ class Header extends React.Component {
 const mapStateToProps = (store) => ({
   name: store.user.name,
   score: store.user.score,
-  email: store.user.gravatarEmail,
+  email: store.user.email,
 });
 export default connect(mapStateToProps)(Header);
 Header.propTypes = {
