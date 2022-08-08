@@ -37,9 +37,10 @@ class Login extends React.Component {
   render() {
     const { name, gravatarEmail, isLoading } = this.state;
     const { userLogin, userEmail } = this.props;
+    const removeSpace = gravatarEmail.replace(' ', '');
     const test = /\w+@\w+.com/;
     const nameLength = 1;
-    const botãoAberto = (test.test(gravatarEmail) && name.length >= nameLength);
+    const botãoAberto = (test.test(removeSpace) && name.length >= nameLength);
     if (isLoading) return <div>Carregando...</div>;
     return (
       <div>

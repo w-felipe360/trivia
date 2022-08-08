@@ -6,6 +6,7 @@ const INITIAL_STATE = {
   score: 0,
   gravatarEmail: '',
 };
+
 const userReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
   case LOGIN_TYPE:
