@@ -7,7 +7,6 @@ class Game extends React.Component {
   state = {
     perguntas: [],
     position: 0,
-    answer: false,
   }
 
   componentDidMount = async () => {
