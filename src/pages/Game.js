@@ -4,20 +4,10 @@ import Header from '../components/Header';
 import { getQuestions } from '../services/requestAPI';
 
 class Game extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      arrayResults: [],
-      i: 0,
-      respostas: [],
-    };
+  state = {
+    perguntas: [],
+    position: 0,
   }
-
-  componentDidMount = async () => {
-    this.reqForGetQuestions();
-    console.log(this.state);
-  }
-
   handleClick = () => {
     const quatro = 4;
     const { i } = this.state;
@@ -28,34 +18,35 @@ class Game extends React.Component {
     }
   }
 
-  reqForGetQuestions = async () => {
+
+  componentDidMount = async () => {
+    const tokenLocal = localStorage.getItem('token');
+    const resultado = await getQuestions(tokenLocal);
+    this.setState({ perguntas: resultado.results }, () => { });
+  }
+
+  componentDidUpdate = () => {
     const { history } = this.props;
-    const token = localStorage.getItem('token');
-    if (!token) {
+    const { perguntas } = this.state;
+    const zero = 0;
+    if (perguntas.length === zero) {
       localStorage.removeItem('token');
-      return history.push('/');
+      history.push('/');
     }
-    const resultado = await getQuestions(token);
-    console.log(resultado);
-    const { results } = resultado;
-    this.setState({
-      arrayResults: results,
-    });
-    // arrayResults.
   }
 
   randomizaResposta = () => {
-    const { arrayResults, i} = this.state;
+    const { perguntas} = this.state;
     const respostaCorreta = (
-    <button type="submit" data-testid="correct-answer"> 
-    { arrayResults[0]?.correct_answer }
+      <button key={ perguntas[0]?.correct_answer} type="submit" data-testid="correct-answer">
+    { perguntas[0]?.correct_answer }
     </button>
     )
-    const respostasIncorretas = arrayResults[0]?.incorrect_answers.map((item, index) => (
+    const respostasIncorretas = perguntas[0]?.incorrect_answers.map((item, index) => (
       <button
         key={ `${item}${index}` }
         type="submit"
-        data-testid={ `wrong-answer-${i}` }
+        data-testid={ `wrong-answer-${index}` }
       >
         {item}
       </button>
@@ -69,54 +60,29 @@ class Game extends React.Component {
   }
 
   render() {
-    const { arrayResults, i } = this.state;
 
-    return (
-      arrayResults.length > 0 && (
+    const { perguntas, position } = this.state;
 
+    if (perguntas.length === 0) {
+      return (
         <div>
           Página do Jogo
           <Header />
-
-          <h1 data-testid="question-category">
-            {arrayResults[i].category}
-          </h1>
-          <p data-testid="question-text">
-            {arrayResults[i].question}
-          </p>
-          <div>
+        </div>);
+    }
+    return (
+      <div>
+        Página do Jogo
+        <Header />
+        <h2 data-testid="question-category">{perguntas[position].category}</h2>
+        <p data-testid="question-text">{perguntas[position].question}</p>
+        <div data-testid="answer-options">
           {
-            
             this.randomizaResposta()
-            
-            // arrayResults.incorrect_answers).map((item, index) => (
-            //   <button
-            //     key={ `${item}${index}` }
-            //     type="submit"
-            //     data-testid={ `wrong-answer-${i}` }
-            //   >
-            //     {item}
-            //   </button>
-            // ))
           }
-          </div>
-
-          <button
-            type="submit"
-            data-testid="correct-answer"
-          >
-            {arrayResults[i].correct_answer}
-          </button>
-
-          <button
-            type="button"
-            data-testid={ i }
-            onClick={ this.handleClick }
-          >
-            Próxima pergunta
-          </button>
         </div>
-      ));
+      </div>
+    );
   }
 }
 

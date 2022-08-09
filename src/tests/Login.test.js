@@ -17,18 +17,18 @@ describe('testes do Login', () => {
     })
     test('teste se a página de Login possui um elemento para e-mail', () =>{
         renderWithRouterAndRedux(<Login />);
-       const email = screen.getByPlaceholderText('e-mail');
-       expect(email).toBeInTheDocument();
+      const email = screen.getByPlaceholderText('e-mail');
+      expect(email).toBeInTheDocument();
     })
     test('teste se a página de Login possui um botão Play', () =>{
         renderWithRouterAndRedux(<Login />);
-       const botaoplay = screen.getByRole('button', {
+      const botaoplay = screen.getByRole('button', {
         name: /play/i
       })
-       expect(botaoplay).toBeInTheDocument();
+      expect(botaoplay).toBeInTheDocument();
     });
-   test(`Teste se ao clicar no botão play, é feita requisição para a API para obter o token e 
-   redirecionar a pessoa para tela de jogo`, async () => {
+  test(`Teste se ao clicar no botão play, é feita requisição para a API para obter o token e 
+  redirecionar a pessoa para tela de jogo`, async () => {
     renderWithRouterAndRedux(<App />);
     const botaoplay = screen.getByRole('button', {
         name: /play/i
@@ -44,15 +44,14 @@ describe('testes do Login', () => {
       expect(loading).toBeInTheDocument();
 
 
-   })
+  })
 
-   
 
 
 
     test('teste se ao clicar no botão settings, a página é redirecionada para ./settings', () =>{
       const { history } = renderWithRouterAndReduxLegal(<App />);
-   const settings = screen.getByTestId('btn-settings')
+  const settings = screen.getByTestId('btn-settings')
   userEvent.click(settings);
   const { pathname } = history.location;
   expect(pathname).toBe('/settings');
@@ -62,8 +61,8 @@ describe('testes do Login', () => {
   expect(textao).toBeInTheDocument();
     });
   test('teste de requisição do play', async () => {
-   renderWithRouterAndReduxLegal(<App />);
-   const botaoplay = screen.getByRole('button', {
+  renderWithRouterAndReduxLegal(<App />);
+  const botaoplay = screen.getByRole('button', {
     name: /play/i
   });
     const nome = screen.getByPlaceholderText('nome');
@@ -75,8 +74,8 @@ describe('testes do Login', () => {
     await waitFor(() => {
       userEvent.click(botaoplay)
     })
-const paginaJogo = await screen.findByText('Página do Jogo');
-expect(paginaJogo).toBeInTheDocument();
+  const paginaJogo = await screen.findByText('Página do Jogo');
+  expect(paginaJogo).toBeInTheDocument();
     const myToken = localStorage.getItem('token', '8e902e0746818afd7812bb7cf0b011fc3974293333317596af9152700b08ce99')
     expect(myToken).toBeDefined();
   })

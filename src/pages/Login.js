@@ -37,9 +37,10 @@ class Login extends React.Component {
   render() {
     const { name, gravatarEmail, isLoading } = this.state;
     const { userLogin, userEmail } = this.props;
+    const removeSpace = gravatarEmail.replace(' ', '');
     const test = /\w+@\w+.com/;
     const nameLength = 1;
-    const botãoAberto = (test.test(gravatarEmail) && name.length >= nameLength);
+    const botãoAberto = (test.test(removeSpace) && name.length >= nameLength);
     if (isLoading) return <div>Carregando...</div>;
     return (
       <div>
@@ -80,10 +81,7 @@ class Login extends React.Component {
     );
   }
 }
-const mapDispatchToProps = (dispatch) => ({
-  userLogin: (name) => dispatch(userLoginAction(name)),
-  userEmail: (gravatarEmail) => dispatch(gravatarAction(gravatarEmail)),
-});
+
 Login.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
@@ -91,4 +89,10 @@ Login.propTypes = {
   userLogin: PropTypes.func.isRequired,
   userEmail: PropTypes.func.isRequired,
 };
+
+const mapDispatchToProps = (dispatch) => ({
+  userLogin: (name) => dispatch(userLoginAction(name)),
+  userEmail: (gravatarEmail) => dispatch(gravatarAction(gravatarEmail)),
+});
+
 export default connect(null, mapDispatchToProps)(Login);
