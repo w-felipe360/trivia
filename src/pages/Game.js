@@ -1,16 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import Header from '../components/Header';
 import { getQuestions } from '../services/requestAPI';
 import Timer from '../components/Timer';
-import { connect } from 'react-redux';
 import { scoreAction } from '../redux/actions';
+
 
 class Game extends React.Component {
   state = {
     perguntas: [],
     position: 0,
     scoreAcc: 0,
+    showNext: false,
   }
 
   handleClickNext = () => {
@@ -43,10 +45,10 @@ class Game extends React.Component {
       console.log(timer);
       const buttonIncorrect = document.getElementsByClassName('answersInc');
       const buttonCorrect = document.getElementsByClassName('answersCor');
-      const buttonIncToArray = Array.from(buttonIncorrect)
-      const buttonCorToArray = Array.from(buttonCorrect)
-      buttonIncToArray.map((button) => button.disabled = true)
-      buttonCorToArray.map((button) => button.disabled = true)
+      const buttonIncToArray = Array.from(buttonIncorrect);
+      const buttonCorToArray = Array.from(buttonCorrect);
+      buttonIncToArray.map((button) => button.disabled = true);
+      buttonCorToArray.map((button) => button.disabled = true);
     }
   }
 
@@ -69,14 +71,30 @@ class Game extends React.Component {
     // https://stackoverflow.com/questions/222841/most-efficient-way-to-convert-an-htmlcollection-to-an-array
     const buttonIncorrect = document.getElementsByClassName('answersInc');
     const buttonCorrect = document.getElementsByClassName('answersCor');
-    const buttonIncToArray = Array.from(buttonIncorrect)
-    const buttonCorToArray = Array.from(buttonCorrect)
-    buttonIncToArray.map((button) => button.style.border = '3px solid red')
-    buttonCorToArray.map((button) => button.style.border = '3px solid rgb(6, 240, 15)')
+    const buttonIncToArray = Array.from(buttonIncorrect);
+    const buttonCorToArray = Array.from(buttonCorrect);
+    buttonIncToArray.map((button) => button.style.border = '3px solid red');
+    buttonCorToArray.map((button) => button.style.border = '3px solid rgb(6, 240, 15)');
+    this.setState({
+      showNext: true,
+    });
+  }
+  
+  handleClickNext = () => {
+    const quatro = 4;
+    const { position } = this.state;
+    if (position !== quatro) {
+      this.setState({
+        position: position + 1,
+      });
+    }
+    this.setState({
+      showNext: false,
+    });
   }
 
   randomizaResposta = () => {
-    const { perguntas} = this.state;
+    const { perguntas, position } = this.state;
     const respostaCorreta = (
       <button
         key={perguntas[0]?.correct_answer}
@@ -86,10 +104,10 @@ class Game extends React.Component {
         className='answersCor'
         onClick={ this.handleClick }
       >
-    { perguntas[0]?.correct_answer }
+    { perguntas[position]?.correct_answer }
     </button>
     )
-    const respostasIncorretas = perguntas[0]?.incorrect_answers.map((item, index) => (
+    const respostasIncorretas = perguntas[position]?.incorrect_answers.map((item, index) => (
       <button
         key={ `${item}${index}` }
         type="submit"
@@ -126,8 +144,7 @@ class Game extends React.Component {
 
 
   render() {
-
-    const { perguntas, position } = this.state;
+    const { perguntas, position, showNext } = this.state;
     if (perguntas.length === 0) {
       return (
         <div>
@@ -147,6 +164,18 @@ class Game extends React.Component {
             this.randomizaResposta()
           }
         </div>
+        {
+          showNext ? (
+            <button
+              data-testid="btn-next"
+              type="button"
+              onClick={ () => this.handleClickNext() }
+            >
+              Next
+            </button>
+          )
+            : ''
+        }
       </div>
     );
   }
