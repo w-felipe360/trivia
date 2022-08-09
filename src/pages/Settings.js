@@ -9,3 +9,7 @@ export default class Settings extends Component {
     );
   }
 }
+
+data-testid="feedback-text"
+
+const feedback = assertions < notaDeFeedback ? 'Could be bette... ' : 'Weel Done!'

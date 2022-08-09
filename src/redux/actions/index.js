@@ -2,10 +2,16 @@ export const LOGIN_TYPE = 'LOGIN_TYPE';
 export const GRAVATAR_TYPE = 'GRAVATAR_TYPE';
 export const TIMER_TYPE = 'TIMER_TYPE';
 export const SCORE_TYPE = 'SCORE_TYPE';
+export const ASSERTIONS_TYPE = 'ASSERTIONS_TYPE';
 
 export const userLoginAction = (name) => ({
   type: LOGIN_TYPE,
   name,
+});
+
+export const userAssertions = (assertions) => ({
+  type: ASSERTIONS_TYPE,
+  assertions,
 });
 
 export const gravatarAction = (email) => ({

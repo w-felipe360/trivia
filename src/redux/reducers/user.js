@@ -1,4 +1,6 @@
-import { LOGIN_TYPE, GRAVATAR_TYPE, TIMER_TYPE, SCORE_TYPE } from '../actions';
+import { LOGIN_TYPE,
+  GRAVATAR_TYPE, TIMER_TYPE,
+  SCORE_TYPE, ASSERTIONS_TYPE } from '../actions';
 
 const INITIAL_STATE = {
   name: '',
@@ -29,6 +31,11 @@ const player = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       score: state.score + action.score,
+    };
+  case ASSERTIONS_TYPE:
+    return {
+      ...state,
+      assertions: state.assertions,
     };
   default:
     return state;
