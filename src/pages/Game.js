@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import Header from '../components/Header';
 import { getQuestions } from '../services/requestAPI';
 import Timer from '../components/Timer';
-import { scoreAction } from '../redux/actions';
+import { scoreAction, resetTimer } from '../redux/actions';
 
 
 class Game extends React.Component {
@@ -13,18 +13,20 @@ class Game extends React.Component {
     position: 0,
     scoreAcc: 0,
     showNext: false,
+    i: 0,
   }
 
   handleClickNext = () => {
     const quatro = 4;
     const { i } = this.state;
+    const { resetTimer } = this.props;
     if (i !== quatro) {
+      resetTimer();
       this.setState({
         i: i + 1,
       });
     }
   }
-
 
   componentDidMount = async () => {
     const tokenLocal = localStorage.getItem('token');
@@ -42,7 +44,7 @@ class Game extends React.Component {
     }
 
     if (timer === zero) {
-      console.log(timer);
+      // console.log(timer);
       const buttonIncorrect = document.getElementsByClassName('answersInc');
       const buttonCorrect = document.getElementsByClassName('answersCor');
       const buttonIncToArray = Array.from(buttonIncorrect);
@@ -185,15 +187,18 @@ Game.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
   }).isRequired,
+  saveScore: PropTypes.func.isRequired,
+  resetTimer: PropTypes.func.isRequired,
 };
-
-const mapDispatchToProps = (dispatch) => ({
-  saveScore: (score) => dispatch(scoreAction(score))
-})
 
 const mapStateToProps = (store) => ({
   score: store.player.score,
   timer: store.player.timer,
-})
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  saveScore: (score) => dispatch(scoreAction(score)),
+  resetTimer: () => dispatch(resetTimer()),
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(Game);
