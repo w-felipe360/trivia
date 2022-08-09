@@ -4,8 +4,7 @@ import { connect } from 'react-redux';
 import Header from '../components/Header';
 import { getQuestions } from '../services/requestAPI';
 import Timer from '../components/Timer';
-import { scoreAction, resetTimer } from '../redux/actions';
-
+import { scoreAction, setResetTimer } from '../redux/actions';
 
 class Game extends React.Component {
   state = {
@@ -15,19 +14,7 @@ class Game extends React.Component {
     showNext: false,
     i: 0,
   }
-
-  handleClickNext = () => {
-    const quatro = 4;
-    const { i } = this.state;
-    const { resetTimer } = this.props;
-    if (i !== quatro) {
-      resetTimer();
-      this.setState({
-        i: i + 1,
-      });
-    }
-  }
-
+  
   componentDidMount = async () => {
     const tokenLocal = localStorage.getItem('token');
     const resultado = await getQuestions(tokenLocal);
@@ -53,7 +40,6 @@ class Game extends React.Component {
       buttonCorToArray.map((button) => button.disabled = true);
     }
   }
-
 
   handleClick = ({target}) => {
     const {name} = target
@@ -85,14 +71,22 @@ class Game extends React.Component {
   handleClickNext = () => {
     const quatro = 4;
     const { position } = this.state;
+    const { history, resetTimer } = this.props;
     if (position !== quatro) {
       this.setState({
         position: position + 1,
       });
     }
+    
     this.setState({
       showNext: false,
     });
+    resetTimer();
+    
+
+    if (position === quatro) {
+     history.push('/feedback')
+    }
   }
 
   randomizaResposta = () => {
@@ -171,7 +165,7 @@ class Game extends React.Component {
             <button
               data-testid="btn-next"
               type="button"
-              onClick={ () => this.handleClickNext() }
+              onClick={ this.handleClickNext }
             >
               Next
             </button>
@@ -198,7 +192,7 @@ const mapStateToProps = (store) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   saveScore: (score) => dispatch(scoreAction(score)),
-  resetTimer: () => dispatch(resetTimer()),
+  resetTimer: () => dispatch(setResetTimer()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Game);

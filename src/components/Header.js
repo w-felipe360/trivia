@@ -27,15 +27,16 @@ class Header extends React.Component {
   }
 }
 
-const mapStateToProps = (store) => ({
-  name: store.player.name,
-  score: store.player.score,
-  email: store.player.email,
-});
-export default connect(mapStateToProps)(Header);
-
 Header.propTypes = {
   name: PropTypes.string,
   score: PropTypes.number,
   gravatarEmail: PropTypes.string,
 }.isRequired;
+
+const mapStateToProps = (store) => ({
+  name: store.player.name,
+  score: store.player.score,
+  email: store.player.email,
+});
+
+export default connect(mapStateToProps)(Header);
