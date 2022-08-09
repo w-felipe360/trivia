@@ -68,21 +68,7 @@ class Game extends React.Component {
         <div data-testid="answer-options">
           {
             this.randomizaResposta()
-          /* {perguntas[position].incorrect_answers.map((item, index) => (
-            <button
-              key={ `${item}${index}` }
-              type="submit"
-              data-testid={ `wrong-answer-${index}` }
-            >
-              {item}
-            </button>
-          ))}
-          <button
-            type="submit"
-            data-testid="correct-answer"
-          >
-            {perguntas[position].correct_answer}
-          </button> */}
+          }
         </div>
       </div>
     );

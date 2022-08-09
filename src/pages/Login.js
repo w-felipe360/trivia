@@ -81,10 +81,7 @@ class Login extends React.Component {
     );
   }
 }
-const mapDispatchToProps = (dispatch) => ({
-  userLogin: (name) => dispatch(userLoginAction(name)),
-  userEmail: (gravatarEmail) => dispatch(gravatarAction(gravatarEmail)),
-});
+
 Login.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
@@ -92,4 +89,10 @@ Login.propTypes = {
   userLogin: PropTypes.func.isRequired,
   userEmail: PropTypes.func.isRequired,
 };
+
+const mapDispatchToProps = (dispatch) => ({
+  userLogin: (name) => dispatch(userLoginAction(name)),
+  userEmail: (gravatarEmail) => dispatch(gravatarAction(gravatarEmail)),
+});
+
 export default connect(null, mapDispatchToProps)(Login);
