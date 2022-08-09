@@ -7,8 +7,6 @@ class Header extends React.Component {
   render() {
     const { name, email } = this.props;
     const hash = md5(email).toString();
-    console.log(hash);
-    console.log(name);
     return (
       <div>
         <img
@@ -29,7 +27,7 @@ class Header extends React.Component {
 const mapStateToProps = (store) => ({
   name: store.user.name,
   score: store.user.score,
-  email: store.user.gravatarEmail,
+  email: store.user.email,
 });
 export default connect(mapStateToProps)(Header);
 Header.propTypes = {
