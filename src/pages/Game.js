@@ -35,10 +35,27 @@ class Game extends React.Component {
     }
   }
 
+  handleClick = () => {
+    // https://developer.mozilla.org/pt-BR/docs/Web/API/Document/getElementsByClassName
+    // https://stackoverflow.com/questions/222841/most-efficient-way-to-convert-an-htmlcollection-to-an-array
+    const buttonIncorrect = document.getElementsByClassName('answersInc');
+    const buttonCorrect = document.getElementsByClassName('answersCor');
+    const buttonIncToArray = Array.from(buttonIncorrect)
+    const buttonCorToArray = Array.from(buttonCorrect)
+    buttonIncToArray.map((button) => button.style.border = '3px solid red')
+    buttonCorToArray.map((button) => button.style.border = '3px solid rgb(6, 240, 15)')
+  }
+
   randomizaResposta = () => {
     const { perguntas} = this.state;
     const respostaCorreta = (
-      <button key={ perguntas[0]?.correct_answer} type="submit" data-testid="correct-answer">
+      <button
+        key={perguntas[0]?.correct_answer}
+        type="submit"
+        data-testid="correct-answer"
+        className='answersCor'
+        onClick={ this.handleClick }
+      >
     { perguntas[0]?.correct_answer }
     </button>
     )
@@ -46,7 +63,9 @@ class Game extends React.Component {
       <button
         key={ `${item}${index}` }
         type="submit"
-        data-testid={ `wrong-answer-${index}` }
+        data-testid={`wrong-answer-${index}`}
+        className='answersInc'
+        onClick={ this.handleClick }
       >
         {item}
       </button>
