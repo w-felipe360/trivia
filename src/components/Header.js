@@ -7,7 +7,7 @@ class Header extends React.Component {
   render() {
     const { name, email } = this.props;
     const formatEmail = email.trim(); // .trim() remove os espaços em branco do inicio e do final da string.
-    formatEmail.toLowerCase(); // muda toda a string para minusculo.
+    formatEmail.toLowerCase(); // transforma toda a string para minusculo.
     const hash = md5(formatEmail).toString();
 
     return (

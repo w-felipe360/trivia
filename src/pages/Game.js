@@ -12,19 +12,6 @@ class Game extends React.Component {
     showNext: false,
   }
 
-  handleClickNext = () => {
-    const quatro = 4;
-    const { position } = this.state;
-    if (position !== quatro) {
-      this.setState({
-        position: position + 1,
-      });
-    }
-    this.setState({
-      showNext: false,
-    });
-  }
-
   componentDidMount = async () => {
     const tokenLocal = localStorage.getItem('token');
     const resultado = await getQuestions(tokenLocal);
@@ -61,6 +48,19 @@ class Game extends React.Component {
     buttonCorToArray.map((button) => button.style.border = '3px solid rgb(6, 240, 15)');
     this.setState({
       showNext: true,
+    });
+  }
+  
+  handleClickNext = () => {
+    const quatro = 4;
+    const { position } = this.state;
+    if (position !== quatro) {
+      this.setState({
+        position: position + 1,
+      });
+    }
+    this.setState({
+      showNext: false,
     });
   }
 
