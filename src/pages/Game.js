@@ -53,7 +53,7 @@ class Game extends React.Component {
   handleClick = ({target}) => {
     const {name} = target
     if(name === 'correct_answer'){
-      const { saveScore, timer, score } = this.props
+      const { saveScore, timer } = this.props
       let acc = 0
       const NumberScore = 10
       const difficulty = this.consegueOsPontos()
