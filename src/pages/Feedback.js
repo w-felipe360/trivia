@@ -3,7 +3,9 @@ import React, { Component } from 'react';
 class feedback extends Component {
   render() {
     return (
-      <div>feedback</div>
+      <div data-testid="feedback-text">
+        feedback
+      </div>
     );
   }
 }

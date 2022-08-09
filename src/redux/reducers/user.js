@@ -11,7 +11,7 @@ const INITIAL_STATE = {
   assertions: 0,
   score: 0,
   email: '',
-  timer: 3,
+  timer: 30,
 };
 
 const player = (state = INITIAL_STATE, action) => {
