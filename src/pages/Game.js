@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import { getQuestions } from '../services/requestAPI';
+import Timer from '../components/Timer';
+import { connect } from 'react-redux';
 
 class Game extends React.Component {
   state = {
@@ -26,12 +28,21 @@ class Game extends React.Component {
   }
 
   componentDidUpdate = () => {
-    const { history } = this.props;
+    const { history, timer } = this.props;
     const { perguntas } = this.state;
     const zero = 0;
     if (perguntas.length === zero) {
       localStorage.removeItem('token');
       history.push('/');
+    }
+
+    if (timer === zero) {
+      const buttonIncorrect = document.getElementsByClassName('answersInc');
+      const buttonCorrect = document.getElementsByClassName('answersCor');
+      const buttonIncToArray = Array.from(buttonIncorrect)
+      const buttonCorToArray = Array.from(buttonCorrect)
+      buttonIncToArray.map((button) => button.disabled = true)
+      buttonCorToArray.map((button) => button.disabled = true)
     }
   }
 
@@ -93,6 +104,7 @@ class Game extends React.Component {
       <div>
         Página do Jogo
         <Header />
+        <Timer />
         <h2 data-testid="question-category">{perguntas[position].category}</h2>
         <p data-testid="question-text">{perguntas[position].question}</p>
         <div data-testid="answer-options">
@@ -111,4 +123,8 @@ Game.propTypes = {
   }).isRequired,
 };
 
-export default Game;
+const mapStateToProps = (store) => ({
+  timer: store.user.timer,
+})
+
+export default connect(mapStateToProps)(Game);
