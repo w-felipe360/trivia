@@ -12,6 +12,7 @@ class Game extends React.Component {
     position: 0,
     scoreAcc: 0,
   }
+
   handleClickNext = () => {
     const quatro = 4;
     const { i } = this.state;
