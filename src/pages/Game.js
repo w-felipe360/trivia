@@ -4,13 +4,27 @@ import { connect } from 'react-redux';
 import Header from '../components/Header';
 import { getQuestions } from '../services/requestAPI';
 import Timer from '../components/Timer';
+import { scoreAction } from '../redux/actions';
+
 
 class Game extends React.Component {
   state = {
     perguntas: [],
     position: 0,
+    scoreAcc: 0,
     showNext: false,
   }
+
+  handleClickNext = () => {
+    const quatro = 4;
+    const { i } = this.state;
+    if (i !== quatro) {
+      this.setState({
+        i: i + 1,
+      });
+    }
+  }
+
 
   componentDidMount = async () => {
     const tokenLocal = localStorage.getItem('token');
@@ -28,6 +42,7 @@ class Game extends React.Component {
     }
 
     if (timer === zero) {
+      console.log(timer);
       const buttonIncorrect = document.getElementsByClassName('answersInc');
       const buttonCorrect = document.getElementsByClassName('answersCor');
       const buttonIncToArray = Array.from(buttonIncorrect);
@@ -37,7 +52,21 @@ class Game extends React.Component {
     }
   }
 
-  handleClick = () => {
+
+  handleClick = ({target}) => {
+    const {name} = target
+    if(name === 'correct_answer'){
+      const { saveScore, timer } = this.props
+      let acc = 0
+      const NumberScore = 10
+      const difficulty = this.consegueOsPontos()
+      const scorePoints = Number(NumberScore + ( timer * difficulty));
+      if(difficulty !== 0){
+        acc += scorePoints
+      }
+      this.setState({scoreAcc: acc})
+      saveScore(acc)
+    }
     // https://developer.mozilla.org/pt-BR/docs/Web/API/Document/getElementsByClassName
     // https://stackoverflow.com/questions/222841/most-efficient-way-to-convert-an-htmlcollection-to-an-array
     const buttonIncorrect = document.getElementsByClassName('answersInc');
@@ -70,6 +99,7 @@ class Game extends React.Component {
       <button
         key={perguntas[0]?.correct_answer}
         type="submit"
+        name='correct_answer'
         data-testid="correct-answer"
         className='answersCor'
         onClick={ this.handleClick }
@@ -88,6 +118,7 @@ class Game extends React.Component {
         {item}
       </button>
     ))
+    // respostasIncorretas.splice(3, 0, respostaCorreta)
     const array1 = [respostaCorreta, ...respostasIncorretas];
     const array2 = [...respostasIncorretas, respostaCorreta];
     const randomize = Math.random();
@@ -96,9 +127,24 @@ class Game extends React.Component {
     } return array2
   }
 
+  consegueOsPontos = () => {
+    const {perguntas} = this.state;
+    const { difficulty } = perguntas  
+    const EasyScore = 1;
+    const MediumScore = 2;
+    const HardScore = 3;
+
+    if (difficulty === 'easy'){
+      return   EasyScore;
+    }
+      if(difficulty === 'medium' ){
+        return MediumScore
+    } return HardScore 
+  }
+
+
   render() {
     const { perguntas, position, showNext } = this.state;
-
     if (perguntas.length === 0) {
       return (
         <div>
@@ -141,8 +187,13 @@ Game.propTypes = {
   }).isRequired,
 };
 
-const mapStateToProps = (store) => ({
-  timer: store.user.timer,
-});
+const mapDispatchToProps = (dispatch) => ({
+  saveScore: (score) => dispatch(scoreAction(score))
+})
 
-export default connect(mapStateToProps)(Game);
+const mapStateToProps = (store) => ({
+  score: store.player.score,
+  timer: store.player.timer,
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Game);

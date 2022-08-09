@@ -41,7 +41,7 @@ Timer.propTypes = {
 };
 
 const mapStateToProps = (store) => ({
-  timer: store.user.timer,
+  timer: store.player.timer,
 });
 
 const mapDispatchToProps = (dispatch) => ({

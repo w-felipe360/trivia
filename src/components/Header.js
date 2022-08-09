@@ -5,13 +5,12 @@ import md5 from 'crypto-js/md5';
 
 class Header extends React.Component {
   render() {
-    const { name, email } = this.props;
+    const { name, email, score } = this.props;
     const formatEmail = email.trim(); // .trim() remove os espaços em branco do inicio e do final da string.
     formatEmail.toLowerCase(); // transforma toda a string para minusculo.
     const hash = md5(formatEmail).toString();
-
     return (
-      <div>
+      <header>
         <img
           src={ `https://www.gravatar.com/avatar/${hash}` }
           data-testid="header-profile-picture"
@@ -21,17 +20,17 @@ class Header extends React.Component {
           { name }
         </p>
         <div data-testid="header-score">
-          0
+          {score}
         </div>
-      </div>
+      </header>
     );
   }
 }
 
 const mapStateToProps = (store) => ({
-  name: store.user.name,
-  score: store.user.score,
-  email: store.user.email,
+  name: store.player.name,
+  score: store.player.score,
+  email: store.player.email,
 });
 export default connect(mapStateToProps)(Header);
 

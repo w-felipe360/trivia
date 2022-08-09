@@ -1,4 +1,4 @@
-import { LOGIN_TYPE, GRAVATAR_TYPE, TIMER_TYPE } from '../actions';
+import { LOGIN_TYPE, GRAVATAR_TYPE, TIMER_TYPE, SCORE_TYPE } from '../actions';
 
 const INITIAL_STATE = {
   name: '',
@@ -8,7 +8,7 @@ const INITIAL_STATE = {
   timer: 30,
 };
 
-const userReducer = (state = INITIAL_STATE, action) => {
+const player = (state = INITIAL_STATE, action) => {
   switch (action.type) {
   case LOGIN_TYPE:
     return {
@@ -25,8 +25,13 @@ const userReducer = (state = INITIAL_STATE, action) => {
       ...state,
       timer: action.timer - 1,
     };
+  case SCORE_TYPE:
+    return {
+      ...state,
+      score: state.score + action.score,
+    };
   default:
     return state;
   }
 };
-export default userReducer;
+export default player;

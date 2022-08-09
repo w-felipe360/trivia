@@ -1,6 +1,7 @@
 export const LOGIN_TYPE = 'LOGIN_TYPE';
 export const GRAVATAR_TYPE = 'GRAVATAR_TYPE';
 export const TIMER_TYPE = 'TIMER_TYPE';
+export const SCORE_TYPE = 'SCORE_TYPE';
 
 export const userLoginAction = (name) => ({
   type: LOGIN_TYPE,
@@ -15,4 +16,9 @@ export const gravatarAction = (email) => ({
 export const setTimer = (timer) => ({
   type: TIMER_TYPE,
   timer,
+});
+
+export const scoreAction = (score) => ({
+  type: SCORE_TYPE,
+  score,
 });
