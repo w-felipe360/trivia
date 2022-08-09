@@ -10,16 +10,6 @@ class Game extends React.Component {
     perguntas: [],
     position: 0,
   }
-  handleClick = () => {
-    const quatro = 4;
-    const { i } = this.state;
-    if (i !== quatro) {
-      this.setState({
-        i: i + 1,
-      });
-    }
-  }
-
 
   componentDidMount = async () => {
     const tokenLocal = localStorage.getItem('token');
