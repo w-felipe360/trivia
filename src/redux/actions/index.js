@@ -1,12 +1,18 @@
 export const LOGIN_TYPE = 'LOGIN_TYPE';
 export const GRAVATAR_TYPE = 'GRAVATAR_TYPE';
+export const TIMER_TYPE = 'TIMER_TYPE';
 
 export const userLoginAction = (name) => ({
   type: LOGIN_TYPE,
   name,
 });
 
-export const gravatarAction = (gravatarEmail) => ({
+export const gravatarAction = (email) => ({
   type: GRAVATAR_TYPE,
-  gravatarEmail,
+  email,
+});
+
+export const setTimer = (timer) => ({
+  type: TIMER_TYPE,
+  timer,
 });
