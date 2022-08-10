@@ -10,7 +10,6 @@ class Game extends React.Component {
   state = {
     perguntas: [],
     position: 0,
-    scoreAcc: 0,
     showNext: false,
     i: 0,
     isDisabled: false,
@@ -20,6 +19,7 @@ class Game extends React.Component {
     const tokenLocal = localStorage.getItem('token');
     const resultado = await getQuestions(tokenLocal);
     this.setState({ perguntas: resultado.results }, () => { });
+    
   }
 
   componentDidUpdate = () => {
@@ -30,7 +30,6 @@ class Game extends React.Component {
       localStorage.removeItem('token');
       history.push('/');
     }
-
     if (timer === zero) {
       const buttonIncorrect = document.getElementsByClassName('answersInc');
       const buttonCorrect = document.getElementsByClassName('answersCor');
@@ -52,7 +51,6 @@ class Game extends React.Component {
       if(difficulty !== 0){
         acc += scorePoints
       }
-      this.setState({scoreAcc: acc})
       saveScore(acc)
       saveAssertions()
     }
@@ -106,7 +104,7 @@ class Game extends React.Component {
     )
     const respostasIncorretas = perguntas[position]?.incorrect_answers.map((item, index) => (
       <button
-        key={ `${item}${index}` }
+        key={ index }
         type="submit"
         data-testid={`wrong-answer-${index}`}
         className='answersInc'
@@ -181,7 +179,7 @@ class Game extends React.Component {
 Game.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
-  }).isRequired,
+  }),
   saveScore: PropTypes.func.isRequired,
   resetTimer: PropTypes.func.isRequired,
 };
