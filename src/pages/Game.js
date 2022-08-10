@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import Header from '../components/Header';
 import { getQuestions } from '../services/requestAPI';
 import Timer from '../components/Timer';
-import { scoreAction, setResetTimer } from '../redux/actions';
+import { assertionsAction, scoreAction, setResetTimer } from '../redux/actions';
 
 class Game extends React.Component {
   state = {
@@ -13,6 +13,7 @@ class Game extends React.Component {
     scoreAcc: 0,
     showNext: false,
     i: 0,
+    isDisabled: false,
   }
   
   componentDidMount = async () => {
@@ -31,7 +32,6 @@ class Game extends React.Component {
     }
 
     if (timer === zero) {
-      // console.log(timer);
       const buttonIncorrect = document.getElementsByClassName('answersInc');
       const buttonCorrect = document.getElementsByClassName('answersCor');
       const buttonIncToArray = Array.from(buttonIncorrect);
@@ -44,7 +44,7 @@ class Game extends React.Component {
   handleClick = ({target}) => {
     const {name} = target
     if(name === 'correct_answer'){
-      const { saveScore, timer } = this.props
+      const { saveScore, timer, saveAssertions } = this.props
       let acc = 0
       const NumberScore = 10
       const difficulty = this.consegueOsPontos()
@@ -54,6 +54,7 @@ class Game extends React.Component {
       }
       this.setState({scoreAcc: acc})
       saveScore(acc)
+      saveAssertions()
     }
     // https://developer.mozilla.org/pt-BR/docs/Web/API/Document/getElementsByClassName
     // https://stackoverflow.com/questions/222841/most-efficient-way-to-convert-an-htmlcollection-to-an-array
@@ -85,7 +86,7 @@ class Game extends React.Component {
     
 
     if (position === quatro) {
-     history.push('/feedback')
+      history.push('/feedback')
     }
   }
 
@@ -193,6 +194,7 @@ const mapStateToProps = (store) => ({
 const mapDispatchToProps = (dispatch) => ({
   saveScore: (score) => dispatch(scoreAction(score)),
   resetTimer: () => dispatch(setResetTimer()),
+  saveAssertions: () => dispatch(assertionsAction())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Game);

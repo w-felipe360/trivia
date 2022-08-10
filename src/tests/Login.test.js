@@ -46,9 +46,6 @@ describe('testes do Login', () => {
 
   })
 
-
-
-
     test('teste se ao clicar no botão settings, a página é redirecionada para ./settings', () =>{
       const { history } = renderWithRouterAndReduxLegal(<App />);
   const settings = screen.getByTestId('btn-settings')

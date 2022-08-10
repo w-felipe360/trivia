@@ -4,6 +4,7 @@ import {
   TIMER_TYPE,
   SCORE_TYPE,
   RESET_TIMER_TYPE,
+  ASSERTIONS_TYPE,
 } from '../actions';
 
 const INITIAL_STATE = {
@@ -40,6 +41,11 @@ const player = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       score: state.score + action.score,
+    };
+  case ASSERTIONS_TYPE:
+    return {
+      ...state,
+      assertions: state.assertions + 1,
     };
   default:
     return state;
