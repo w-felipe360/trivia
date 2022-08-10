@@ -47,7 +47,7 @@ class Feedback extends Component {
           Play Again
         </button>
         <button
-          type="buttton"
+          type="button"
           data-testid="btn-ranking"
           onClick={ this.onCLickRanking }
         >

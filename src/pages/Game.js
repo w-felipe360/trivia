@@ -13,6 +13,7 @@ class Game extends React.Component {
     scoreAcc: 0,
     showNext: false,
     i: 0,
+    isDisabled: false,
   }
   
   componentDidMount = async () => {
@@ -31,7 +32,6 @@ class Game extends React.Component {
     }
 
     if (timer === zero) {
-      // console.log(timer);
       const buttonIncorrect = document.getElementsByClassName('answersInc');
       const buttonCorrect = document.getElementsByClassName('answersCor');
       const buttonIncToArray = Array.from(buttonIncorrect);
