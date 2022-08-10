@@ -11,15 +11,12 @@ class Game extends React.Component {
     perguntas: [],
     position: 0,
     showNext: false,
-    i: 0,
-    isDisabled: false,
   }
-  
+
   componentDidMount = async () => {
     const tokenLocal = localStorage.getItem('token');
     const resultado = await getQuestions(tokenLocal);
     this.setState({ perguntas: resultado.results }, () => { });
-    
   }
 
   componentDidUpdate = () => {
@@ -35,24 +32,30 @@ class Game extends React.Component {
       const buttonCorrect = document.getElementsByClassName('answersCor');
       const buttonIncToArray = Array.from(buttonIncorrect);
       const buttonCorToArray = Array.from(buttonCorrect);
-      buttonIncToArray.map((button) => button.disabled = true);
-      buttonCorToArray.map((button) => button.disabled = true);
+      buttonIncToArray.map((button) => {
+        button.disabled = true;
+        return button;
+      });
+      buttonCorToArray.map((button) => {
+        button.disabled = true;
+        return button;
+      });
     }
   }
 
-  handleClick = ({target}) => {
-    const {name} = target
-    if(name === 'correct_answer'){
-      const { saveScore, timer, saveAssertions } = this.props
-      let acc = 0
-      const NumberScore = 10
-      const difficulty = this.consegueOsPontos()
-      const scorePoints = Number(NumberScore + ( timer * difficulty));
-      if(difficulty !== 0){
-        acc += scorePoints
+  handleClick = ({ target }) => {
+    const { name } = target;
+    if (name === 'correct_answer') {
+      const { saveScore, timer, saveAssertions } = this.props;
+      let acc = 0;
+      const NumberScore = 10;
+      const difficulty = this.consegueOsPontos();
+      const scorePoints = Number(NumberScore + (timer * difficulty));
+      if (difficulty !== 0) {
+        acc += scorePoints;
       }
-      saveScore(acc)
-      saveAssertions()
+      saveScore(acc);
+      saveAssertions();
     }
     // https://developer.mozilla.org/pt-BR/docs/Web/API/Document/getElementsByClassName
     // https://stackoverflow.com/questions/222841/most-efficient-way-to-convert-an-htmlcollection-to-an-array
@@ -60,13 +63,21 @@ class Game extends React.Component {
     const buttonCorrect = document.getElementsByClassName('answersCor');
     const buttonIncToArray = Array.from(buttonIncorrect);
     const buttonCorToArray = Array.from(buttonCorrect);
-    buttonIncToArray.map((button) => button.style.border = '3px solid red');
-    buttonCorToArray.map((button) => button.style.border = '3px solid rgb(6, 240, 15)');
+    buttonIncToArray.map((button) => {
+      const redBorder = '3px solid red';
+      button.style.border = redBorder;
+      return button;
+    });
+    buttonCorToArray.map((button) => {
+      const greenBorder = '3px solid rgb(6, 240, 15)';
+      button.style.border = greenBorder;
+      return button;
+    });
     this.setState({
       showNext: true,
     });
   }
-  
+
   handleClickNext = () => {
     const quatro = 4;
     const { position } = this.state;
@@ -76,67 +87,73 @@ class Game extends React.Component {
         position: position + 1,
       });
     }
-    
+
     this.setState({
       showNext: false,
     });
     resetTimer();
-    
 
     if (position === quatro) {
-      history.push('/feedback')
+      history.push('/feedback');
     }
+  }
+
+  gambiarra = (index) => {
+    const testid = `wrong-answer-${index}`;
+    return testid;
   }
 
   randomizaResposta = () => {
     const { perguntas, position } = this.state;
     const respostaCorreta = (
       <button
-        key={perguntas[0]?.correct_answer}
+        key={ perguntas[0]?.correct_answer }
         type="submit"
-        name='correct_answer'
+        name="correct_answer"
         data-testid="correct-answer"
-        className='answersCor'
+        className="answersCor"
         onClick={ this.handleClick }
       >
-    { perguntas[position]?.correct_answer }
-    </button>
-    )
-    const respostasIncorretas = perguntas[position]?.incorrect_answers.map((item, index) => (
-      <button
-        key={ index }
-        type="submit"
-        data-testid={`wrong-answer-${index}`}
-        className='answersInc'
-        onClick={ this.handleClick }
-      >
-        {item}
+        { perguntas[position]?.correct_answer }
       </button>
-    ))
+    );
+    const respostasIncorretas = perguntas[position]?.incorrect_answers.map(
+      (item, index) => (
+        <button
+          key={ item + index }
+          type="submit"
+          data-testid={ this.gambiarra(index) }
+          className="answersInc"
+          onClick={ this.handleClick }
+        >
+          {item}
+        </button>
+      ),
+    );
     // respostasIncorretas.splice(3, 0, respostaCorreta)
     const array1 = [respostaCorreta, ...respostasIncorretas];
     const array2 = [...respostasIncorretas, respostaCorreta];
     const randomize = Math.random();
-    if (randomize > 0.50) {
-      return array1
-    } return array2
+    const fifty = 0.50;
+    if (randomize > fifty) {
+      return array1;
+    } return array2;
   }
 
   consegueOsPontos = () => {
-    const {perguntas} = this.state;
-    const { difficulty } = perguntas  
+    const { perguntas } = this.state;
+    const { difficulty } = perguntas;
     const EasyScore = 1;
     const MediumScore = 2;
     const HardScore = 3;
 
-    if (difficulty === 'easy'){
-      return   EasyScore;
+    if (difficulty === 'easy') {
+      return EasyScore;
     }
-      if(difficulty === 'medium' ){
-        return MediumScore
-    } return HardScore 
+    if (difficulty === 'medium') {
+      return MediumScore;
+    } return HardScore;
   }
-
 
   render() {
     const { perguntas, position, showNext } = this.state;
@@ -179,9 +196,11 @@ class Game extends React.Component {
 Game.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
-  }),
+  }).isRequired,
   saveScore: PropTypes.func.isRequired,
   resetTimer: PropTypes.func.isRequired,
+  timer: PropTypes.number.isRequired,
+  saveAssertions: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (store) => ({
@@ -192,7 +211,7 @@ const mapStateToProps = (store) => ({
 const mapDispatchToProps = (dispatch) => ({
   saveScore: (score) => dispatch(scoreAction(score)),
   resetTimer: () => dispatch(setResetTimer()),
-  saveAssertions: () => dispatch(assertionsAction())
+  saveAssertions: () => dispatch(assertionsAction()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Game);
