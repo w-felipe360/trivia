@@ -4,10 +4,6 @@ import { connect } from 'react-redux';
 import Header from '../components/Header';
 
 class Feedback extends Component {
-  state={
-
-  }
-
   onClickPlayAgain = () => {
     const { history } = this.props;
     history.push('/');
@@ -29,14 +25,14 @@ class Feedback extends Component {
         <Header />
         <h1 data-testid="feedback-total-score">
           {' '}
-          {score}
+          { score }
           {' '}
         </h1>
         <h2 data-testid="feedback-text">
-          {feedback}
+          { feedback }
         </h2>
         <h2 data-testid="feedback-total-question">
-          { assertions}
+          { assertions }
           {' '}
         </h2>
         <button
