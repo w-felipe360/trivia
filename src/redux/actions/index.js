@@ -10,7 +10,7 @@ export const userLoginAction = (name) => ({
   name,
 });
 
-export const userAssertions = (assertions) => ({
+export const assertionsAction = (assertions) => ({
   type: ASSERTIONS_TYPE,
   assertions,
 });
@@ -25,9 +25,8 @@ export const setTimer = (timer) => ({
   timer,
 });
 
-export const resetTimer = (timer) => ({
+export const setResetTimer = () => ({
   type: RESET_TIMER_TYPE,
-  timer,
 });
 
 export const scoreAction = (score) => ({
