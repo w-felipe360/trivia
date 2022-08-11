@@ -19,7 +19,7 @@ class Ranking extends React.Component {
             type="button"
             onClick={ this.handleClick }
           >
-            Vai Pra Casa
+            Back to Login
 
           </button>
         </section>

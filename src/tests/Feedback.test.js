@@ -26,7 +26,7 @@ describe('Testes da página de feedback', () => {
         const totalScoreGame = screen.getByTestId('feedback-total-score');
         expect(totalScoreGame).toBeInTheDocument();
     })   
-   test('se há um elemento de texto referente ao score do jogador.', () => {
+    test('se há um elemento de texto referente ao score do jogador.', () => {
         renderWithRouterAndRedux(<Feedback />);
         const feedbackText = screen.getByTestId('feedback-text');
         expect(feedbackText).toBeDefined();
