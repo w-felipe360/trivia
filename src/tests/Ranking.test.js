@@ -25,4 +25,7 @@ describe('Fazendo testes basicos no Ranking', () => {
     expect(rankingTitle).toBeDefined()
     expect(buttonReturn).toBeDefined()
   })
+  test('Quantos pontos a pessoa recebe', () => {
+    
+  })
 })
