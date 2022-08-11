@@ -47,14 +47,14 @@ class Login extends React.Component {
       <div className="login_container">
         <form>
           <input
-            placeholder="nome"
+            placeholder="Nome"
             name="name"
             type="text"
             data-testid="input-player-name"
             onChange={ this.handleChange }
           />
           <input
-            placeholder="e-mail"
+            placeholder="E-mail"
             name="gravatarEmail"
             type="email"
             data-testid="input-gravatar-email"
@@ -77,7 +77,7 @@ class Login extends React.Component {
             type="submit"
             onClick={ this.handleClick }
           >
-            settings
+            Settings
           </button>
         </form>
       </div>
