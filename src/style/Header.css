@@ -6,6 +6,10 @@ header {
   justify-content: space-around;
 }
 
+body {
+  background-color: rgb(232, 234, 236);
+}
+
 img {
   border: 2px solid black;
   border-radius: 50%;
