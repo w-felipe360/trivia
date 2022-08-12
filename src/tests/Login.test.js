@@ -12,12 +12,12 @@ import { renderWithRouterAndReduxLegal } from './helpers/renderWith';
 describe('testes do Login', () => {
     test('teste se a página de Login é possui um elemento para nome', () => {
         renderWithRouterAndRedux(<Login />);
-        const nome = screen.getByPlaceholderText('nome');
+        const nome = screen.getByPlaceholderText('Nome');
         expect(nome).toBeInTheDocument();
     })
     test('teste se a página de Login possui um elemento para e-mail', () =>{
         renderWithRouterAndRedux(<Login />);
-      const email = screen.getByPlaceholderText('e-mail');
+      const email = screen.getByPlaceholderText('E-mail');
       expect(email).toBeInTheDocument();
     })
     test('teste se a página de Login possui um botão Play', () =>{
@@ -33,8 +33,8 @@ describe('testes do Login', () => {
     const botaoplay = screen.getByRole('button', {
         name: /play/i
       });
-      const nome = screen.getByPlaceholderText('nome');
-      const email = screen.getByPlaceholderText('e-mail');
+      const nome = screen.getByPlaceholderText('Nome');
+      const email = screen.getByPlaceholderText('E-mail');
       expect(botaoplay).toBeDisabled();
       userEvent.type(nome, "Roberto Carlos");
       userEvent.type(email, "nada@gmail.com");
@@ -62,8 +62,8 @@ describe('testes do Login', () => {
   const botaoplay = screen.getByRole('button', {
     name: /play/i
   });
-    const nome = screen.getByPlaceholderText('nome');
-    const email = screen.getByPlaceholderText('e-mail');
+    const nome = screen.getByPlaceholderText('Nome');
+    const email = screen.getByPlaceholderText('E-mail');
     userEvent.type(nome, "Roberto Carlos");
     userEvent.type(email, "nada@gmail.com");
     userEvent.click(botaoplay);

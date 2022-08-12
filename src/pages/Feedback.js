@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Header from '../components/Header';
+import '../style/Feedback.css';
 
 class Feedback extends Component {
   onClickPlayAgain = () => {
@@ -23,33 +24,42 @@ class Feedback extends Component {
     return (
       <section>
         <Header />
-        <h1 data-testid="feedback-total-score">
-          {' '}
-          { score }
-          {' '}
-        </h1>
-        <h2 data-testid="feedback-text">
-          { feedback }
-        </h2>
-        <h2 data-testid="feedback-total-question">
-          { assertions }
-          {' '}
-        </h2>
-        <button
-          data-testid="btn-play-again"
-          type="button"
-          onClick={ this.onClickPlayAgain }
-        >
-          Play Again
-        </button>
-        <button
-          type="button"
-          data-testid="btn-ranking"
-          onClick={ this.onCLickRanking }
-        >
-          Ranking
+        <div className="feed-text">
+          <h1 data-testid="feedback-total-score" className="score-feed">
+            {'Pontos:'}
+            {' '}
+            { score }
+            {' '}
+          </h1>
+          <h2 data-testid="feedback-text" className="text-feed">
+            { feedback }
+          </h2>
+          <h2 data-testid="feedback-total-question" className="quest-feed">
+            {'Acertos:'}
+            {' '}
+            { assertions }
+            {' '}
+          </h2>
+        </div>
+        <div className="buttons">
+          <button
+            data-testid="btn-play-again"
+            type="button"
+            className="btn-play-again"
+            onClick={ this.onClickPlayAgain }
+          >
+            Play Again
+          </button>
+          <button
+            type="button"
+            data-testid="btn-ranking"
+            className="btn-ranking"
+            onClick={ this.onCLickRanking }
+          >
+            Ranking
 
-        </button>
+          </button>
+        </div>
       </section>
     );
   }

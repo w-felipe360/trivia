@@ -1,0 +1,71 @@
+.feed-text {
+  align-items: center;
+  background-image: linear-gradient(-30deg, black, rgb(34, 34, 34), rgb(68, 68, 68));
+  border: 4px solid black;
+  border-radius: 25px;
+  display: flex;
+  flex-flow: column;
+  font-family: sans-serif;
+  justify-content: center;
+  margin: 10px 300px;
+  min-height: 55vh;
+  text-align: center;
+}
+
+.score-feed {
+  color: rgb(135, 248, 248);
+}
+
+.text-feed {
+  color: rgb(255, 166, 0);
+}
+
+.quest-feed {
+  color: rgb(190, 190, 255);
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 30px;
+}
+
+.btn-play-again {
+  background-color: darkblue;
+  border: 2px solid black;
+  border-radius: 10px;
+  box-shadow: 1px 1px rgb(34, 34, 34);
+  color: white;
+  font-family: sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  min-height: 8vh;
+  min-width: 30vh;
+}
+
+.btn-play-again:hover {
+  background-color: rgb(95, 184, 243);
+  color: black;
+  cursor: pointer;
+  transition: 0.5s;
+}
+
+.btn-ranking {
+  background-color: darkblue;
+  border: 2px solid black;
+  border-radius: 10px;
+  box-shadow: 1px 1px rgb(34, 34, 34);
+  color: white;
+  font-family: sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  min-height: 8vh;
+  min-width: 30vh;
+}
+
+.btn-ranking:hover {
+  background-color: rgb(95, 184, 243);
+  color: black;
+  cursor: pointer;
+  transition: 0.5s;
+}
