@@ -45,6 +45,7 @@ class Login extends React.Component {
     if (isLoading) return <div>Carregando...</div>;
     return (
       <div className="login_container">
+
         <form>
           <input
             placeholder="Nome"
@@ -81,6 +82,7 @@ class Login extends React.Component {
           </button>
         </form>
       </div>
+
     );
   }
 }
