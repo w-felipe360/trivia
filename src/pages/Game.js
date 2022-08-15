@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Header from '../components/Header';
 import { getQuestions } from '../services/requestAPI';
+import './CSS/game.css';
 import Timer from '../components/Timer';
 import { assertionsAction, scoreAction, setResetTimer } from '../redux/actions';
 
@@ -169,25 +170,31 @@ class Game extends React.Component {
         Página do Jogo
         <Header />
         <Timer />
-        <h2 data-testid="question-category">{perguntas[position].category}</h2>
-        <p data-testid="question-text">{perguntas[position].question}</p>
-        <div data-testid="answer-options">
-          {
-            this.randomizaResposta()
-          }
+        <div className="QuestionsTime">
+          <div className="containerQuestions">
+            <h2 data-testid="question-category">{perguntas[position].category}</h2>
+            <p data-testid="question-text">{perguntas[position].question}</p>
+            <div data-testid="answer-options" className="answerOptions">
+              {
+                this.randomizaResposta()
+              }
+
+              {
+                showNext ? (
+                  <button
+                    data-testid="btn-next"
+                    type="button"
+                    className="nextQuestions"
+                    onClick={ this.handleClickNext }
+                  >
+                    Next
+                  </button>
+                )
+                  : ''
+              }
+            </div>
+          </div>
         </div>
-        {
-          showNext ? (
-            <button
-              data-testid="btn-next"
-              type="button"
-              onClick={ this.handleClickNext }
-            >
-              Next
-            </button>
-          )
-            : ''
-        }
       </div>
     );
   }

@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import trivia from '../trivia.png';
 import './CSS/cssLogin.css';
 import { getToken, setLocalStorage } from '../services/requestAPI';
 import { gravatarAction, userLoginAction } from '../redux/actions';
@@ -44,44 +45,49 @@ class Login extends React.Component {
     const botãoAberto = (test.test(removeSpace) && name.length >= nameLength);
     if (isLoading) return <div>Carregando...</div>;
     return (
-      <div className="login_container">
-
-        <form>
-          <input
-            placeholder="Nome"
-            name="name"
-            type="text"
-            data-testid="input-player-name"
-            onChange={ this.handleChange }
-          />
-          <input
-            placeholder="E-mail"
-            name="gravatarEmail"
-            type="email"
-            data-testid="input-gravatar-email"
-            onChange={ this.handleChange }
-          />
-          <button
-            data-testid="btn-play"
-            type="submit"
-            disabled={ !botãoAberto }
-            onClick={ () => {
-              this.handleClickAPI();
-              userLogin(name);
-              userEmail(gravatarEmail);
-            } }
-          >
-            Play
-          </button>
-          <button
-            data-testid="btn-settings"
-            type="submit"
-            onClick={ this.handleClick }
-          >
-            Settings
-          </button>
-        </form>
-      </div>
+      <>
+        {' '}
+        <div className="containerTrivia">
+          <img src={ trivia } alt="trivia Imagem" className="imgTrivia" />
+        </div>
+        <div className="login_container">
+          <form>
+            <input
+              placeholder="Nome"
+              name="name"
+              type="text"
+              data-testid="input-player-name"
+              onChange={ this.handleChange }
+            />
+            <input
+              placeholder="E-mail"
+              name="gravatarEmail"
+              type="email"
+              data-testid="input-gravatar-email"
+              onChange={ this.handleChange }
+            />
+            <button
+              data-testid="btn-play"
+              type="submit"
+              disabled={ !botãoAberto }
+              onClick={ () => {
+                this.handleClickAPI();
+                userLogin(name);
+                userEmail(gravatarEmail);
+              } }
+            >
+              Play
+            </button>
+            <button
+              data-testid="btn-settings"
+              type="submit"
+              onClick={ this.handleClick }
+            >
+              Settings
+            </button>
+          </form>
+        </div>
+      </>
 
     );
   }
