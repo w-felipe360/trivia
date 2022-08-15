@@ -1,0 +1,29 @@
+.QuestionsTime {
+  align-items: center;
+  display: flex;
+  height: 58rem;
+  justify-self: center;
+  width: 100%;
+}
+
+.containerQuestions {
+  align-items: center;
+  background-image: linear-gradient(30deg, darkblue, rgba(0, 255, 255, 0.856));
+  box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  height: 30%;
+  justify-content: center;
+  margin-bottom: 10%;
+  text-align: center;
+  width: 100%;
+}
+
+
+.answerOptions {
+  width: 60%;
+}
+
+button:hover {
+  box-shadow: 0 12px 16px 0 rgb(236, 236, 236) , 0 17px 50px 0 rgb(228, 226, 226);
+}

@@ -1,0 +1,15 @@
+.containerTimer {
+  align-items: center;
+  display: flex;
+  justify-self: center;
+  width: 100%;
+}
+
+.timer {
+  align-items: center;
+  box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  width: 100%;
+}

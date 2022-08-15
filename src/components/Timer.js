@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { setTimer } from '../redux/actions';
+import './CSS/timer.css';
 
 class Timer extends React.Component {
   componentDidMount() {
@@ -28,8 +29,8 @@ class Timer extends React.Component {
   render() {
     const { timer } = this.props;
     return (
-      <section>
-        <h2>{ timer }</h2>
+      <section className="containerTimer">
+        <h2 className="timer">{ timer }</h2>
       </section>
     );
   }
